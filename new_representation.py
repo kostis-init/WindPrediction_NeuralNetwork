@@ -1,10 +1,15 @@
 from pandas import read_csv
 import keras
 import numpy
+import argparse
 
 # Parse input
 
-nn_representations_data = read_csv("input_data/nn_representations.csv")
+parser = argparse.ArgumentParser(description='Give input file')
+parser.add_argument('-i', action='store', dest='filename')
+args = parser.parse_args()
+
+nn_representations_data = read_csv(args.filename)
 model = keras.models.load_model('input_data/WindDenseNN.h5')
 
 # Copy the first layer of the model to a new model
@@ -29,7 +34,7 @@ result = new_model.predict(nn_representations_data)
 file = open("output_data/new_representation.csv","w")
 
 for i,row in enumerate(result):
-	file.write(str(dates[i]))
+	file.write(str(dates[i]).replace(" ", "_"))
 	file.write(" ")
 	for number in row:
 		file.write(str(number))

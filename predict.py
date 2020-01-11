@@ -1,11 +1,16 @@
 from pandas import read_csv
 from keras.models import load_model
 import numpy
+import argparse
 
 # Parse input
 
+parser = argparse.ArgumentParser(description='Give input file')
+parser.add_argument('-i', action='store', dest='filename')
+args = parser.parse_args()
+
 actual_data = read_csv("input_data/actual.csv")
-nn_representations_data = read_csv("input_data/nn_representations.csv")
+nn_representations_data = read_csv(args.filename)
 model = load_model('input_data/WindDenseNN.h5')
 
 # Keep timestamps
@@ -39,7 +44,6 @@ for i,row in enumerate(result):
 			mape_sum += diff/actual_data.values[i][j]
 		counter += 1
 
-
 # Write to file
 
 file = open("output_data/predicted.csv","w")
@@ -53,7 +57,7 @@ file.write(str(mse_sum/counter))
 file.write("\n")
 
 for i,row in enumerate(result):
-	file.write(str(dates[i]))
+	file.write(str(dates[i]).replace(" ", "_"))
 	file.write(" ")
 	for number in row:
 		file.write(str(number))
