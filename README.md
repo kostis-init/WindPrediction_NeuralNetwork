@@ -12,7 +12,10 @@ Predict wind intensity and experiment with a pre-trained neural network, using K
 ### Usage
 
 A. $ python3.7 predict.py -i [input_file]
+
 B. $ python3.7 new_representation.py -i [input_file]
+
+C. See [cluster's readme](cluster/README.md), to use cluster with the output of the new_representation.py script.
 
 #### Authors
 
