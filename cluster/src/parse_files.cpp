@@ -1,3 +1,5 @@
+// Changes have been made for task 3 integration
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -18,16 +20,18 @@ Dataset* parseFile(string filename){
         cout << "input file does not exist" << endl;
         exit(-1);
     };
-    ifstream inputFile(filename.c_str());
-    string line;
-    getline(inputFile, line);
-    if(line.find("vectors") != string::npos){
-        return parseFilePoints(filename);
-    } else if(line.find("curves") != string::npos){
-        return parseFileCurves(filename);
-    }
-    cout << "Error: first line of input file must be 'vectors' or 'curves'" << endl;
-    exit(-1);
+//    ifstream inputFile(filename.c_str());
+//   string line;
+//    getline(inputFile, line);
+//    if(line.find("vectors") != string::npos){
+//        return parseFilePoints(filename);
+//    } else if(line.find("curves") != string::npos){
+//        return parseFileCurves(filename);
+//    }
+//    cout << "Error: first line of input file must be 'vectors' or 'curves'" << endl;
+//    exit(-1);
+
+	return parseFilePoints(filename);
 }
 
 Dataset* parseFilePoints(string filename) {
@@ -43,8 +47,9 @@ Dataset* parseFilePoints(string filename) {
     int current_dimension = -1;
     double minCoordinate = DBL_MAX;
     double maxCoordinate = -DBL_MAX;
-    //skip first line
-    getline(inputFile, line);
+//    //skip first line
+//    getline(inputFile, line);
+    
     while(getline(inputFile, line)){
         //extract item_id
         string item_id = line.substr(0, line.find_first_of("\t "));
@@ -55,6 +60,20 @@ Dataset* parseFilePoints(string filename) {
         stringstream line_stream(line);
         int dimension = 0;
         //add every coordinate to point
+//		while(1){
+//			string coord = line.substr(0, line.find_first_of(","));
+//			auto coordinate = atof(coord.c_str());
+//			minCoordinate = min(coordinate,minCoordinate);
+//			maxCoordinate = max(coordinate,maxCoordinate);
+//           point->addCoordinateLast(coordinate);
+//          dimension++;
+//         int previous_line_len = line.length();
+//			line = line.substr(line.find_first_of(",") + 1);
+//			//cout << "just substringed, new line: " << line << endl;
+//		if(line.length() == previous_line_len)
+//				break;
+//	}
+
         while(line_stream >> token){
             auto coordinate = atof(token.c_str());
             minCoordinate = min(coordinate,minCoordinate);

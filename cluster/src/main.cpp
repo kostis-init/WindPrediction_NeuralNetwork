@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
     auto cluster = new Cluster();
     readArguments(cluster, argc, argv);
     cluster->setData(parseFile(cluster->getGeneralParameters()->getInputFilename()));
-    //test_print_data(cluster->getDataset());
+    test_print_data(cluster->getDataset());
 
     //executeAlgorithm(cluster,Random,Lloyd,PAM);
     //executeAlgorithm(cluster,Random,Lloyd,Centroid);
